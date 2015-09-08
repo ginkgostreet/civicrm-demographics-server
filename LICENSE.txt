@@ -1,4 +1,4 @@
-Package: com.ginkgostreet.demographics.server
+Package: com.ginkgostreet.metricserver
 Copyright (C) 2015, Tobias Lounsbury <tobiaslounsbury@gmail.com>
 Licensed under the GNU Affero Public License 3.0 (below).
 

@@ -1,14 +1,14 @@
 <?php
 
-require_once 'server.civix.php';
+require_once 'metricserver.civix.php';
 
 /**
  * Implements hook_civicrm_config().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_config
  */
-function server_civicrm_config(&$config) {
-  _server_civix_civicrm_config($config);
+function metricserver_civicrm_config(&$config) {
+  _metricserver_civix_civicrm_config($config);
 }
 
 /**
@@ -18,8 +18,8 @@ function server_civicrm_config(&$config) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_xmlMenu
  */
-function server_civicrm_xmlMenu(&$files) {
-  _server_civix_civicrm_xmlMenu($files);
+function metricserver_civicrm_xmlMenu(&$files) {
+  _metricserver_civix_civicrm_xmlMenu($files);
 }
 
 /**
@@ -27,8 +27,8 @@ function server_civicrm_xmlMenu(&$files) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_install
  */
-function server_civicrm_install() {
-  _server_civix_civicrm_install();
+function metricserver_civicrm_install() {
+  _metricserver_civix_civicrm_install();
 }
 
 /**
@@ -36,8 +36,8 @@ function server_civicrm_install() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_uninstall
  */
-function server_civicrm_uninstall() {
-  _server_civix_civicrm_uninstall();
+function metricserver_civicrm_uninstall() {
+  _metricserver_civix_civicrm_uninstall();
 }
 
 /**
@@ -45,8 +45,8 @@ function server_civicrm_uninstall() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_enable
  */
-function server_civicrm_enable() {
-  _server_civix_civicrm_enable();
+function metricserver_civicrm_enable() {
+  _metricserver_civix_civicrm_enable();
 }
 
 /**
@@ -54,8 +54,8 @@ function server_civicrm_enable() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_disable
  */
-function server_civicrm_disable() {
-  _server_civix_civicrm_disable();
+function metricserver_civicrm_disable() {
+  _metricserver_civix_civicrm_disable();
 }
 
 /**
@@ -70,8 +70,8 @@ function server_civicrm_disable() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_upgrade
  */
-function server_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
-  return _server_civix_civicrm_upgrade($op, $queue);
+function metricserver_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
+  return _metricserver_civix_civicrm_upgrade($op, $queue);
 }
 
 /**
@@ -82,8 +82,8 @@ function server_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_managed
  */
-function server_civicrm_managed(&$entities) {
-  _server_civix_civicrm_managed($entities);
+function metricserver_civicrm_managed(&$entities) {
+  _metricserver_civix_civicrm_managed($entities);
 }
 
 /**
@@ -95,8 +95,8 @@ function server_civicrm_managed(&$entities) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_caseTypes
  */
-function server_civicrm_caseTypes(&$caseTypes) {
-  _server_civix_civicrm_caseTypes($caseTypes);
+function metricserver_civicrm_caseTypes(&$caseTypes) {
+  _metricserver_civix_civicrm_caseTypes($caseTypes);
 }
 
 /**
@@ -109,8 +109,8 @@ function server_civicrm_caseTypes(&$caseTypes) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_caseTypes
  */
-function server_civicrm_angularModules(&$angularModules) {
-_server_civix_civicrm_angularModules($angularModules);
+function metricserver_civicrm_angularModules(&$angularModules) {
+  _metricserver_civix_civicrm_angularModules($angularModules);
 }
 
 /**
@@ -118,8 +118,8 @@ _server_civix_civicrm_angularModules($angularModules);
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_alterSettingsFolders
  */
-function server_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
-  _server_civix_civicrm_alterSettingsFolders($metaDataFolders);
+function metricserver_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
+  _metricserver_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
 
 /**
@@ -131,8 +131,8 @@ function server_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
  *
-function server_civicrm_preProcess($formName, &$form) {
+function metricserver_civicrm_preProcess($formName, &$form) {
 
 }
 
-*/
+ */
