@@ -1,19 +1,19 @@
 <?php
 
 /**
- * Demographics.Report API specification (optional)
+ * Metrics.report API specification (optional)
  * This is used for documentation and validation.
  *
  * @param array $spec description of fields supported by this API call
  * @return void
  * @see http://wiki.civicrm.org/confluence/display/CRM/API+Architecture+Standards
  */
-function _civicrm_api3_demographics_Report_spec(&$spec) {
+function _civicrm_api3_metrics_report_spec(&$spec) {
   $spec['magicword']['api.required'] = 1;
 }
 
 /**
- * Demographics.Report API
+ * Metrics.report API
  *
  * @param array $params
  * @return array API result descriptor
@@ -21,7 +21,7 @@ function _civicrm_api3_demographics_Report_spec(&$spec) {
  * @see civicrm_api3_create_error
  * @throws API_Exception
  */
-function civicrm_api3_demographics_Report($params) {
+function civicrm_api3_metrics_report($params) {
   if (array_key_exists('magicword', $params) && $params['magicword'] == 'sesame') {
     $returnValues = array( // OK, return several data rows
       12 => array('id' => 12, 'name' => 'Twelve'),
@@ -32,7 +32,7 @@ function civicrm_api3_demographics_Report($params) {
     // ALTERNATIVE: $returnValues = array("Some value"); // OK, return a single value
 
     // Spec: civicrm_api3_create_success($values = 1, $params = array(), $entity = NULL, $action = NULL)
-    return civicrm_api3_create_success($returnValues, $params, 'NewEntity', 'NewAction');
+    return civicrm_api3_create_success($returnValues, $params, 'Metrics', 'report');
   } else {
     throw new API_Exception(/*errorMessage*/ 'Everyone knows that the magicword is "sesame"', /*errorCode*/ 1234);
   }
