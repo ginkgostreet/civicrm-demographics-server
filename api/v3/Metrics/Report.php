@@ -9,7 +9,9 @@
  * @see http://wiki.civicrm.org/confluence/display/CRM/API+Architecture+Standards
  */
 function _civicrm_api3_metrics_report_spec(&$spec) {
-  $spec['magicword']['api.required'] = 1;
+  $spec['site_name']['api.required'] = 1;
+  $spec['site_url']['api.required'] = 1;
+  $spec['data']['api.required'] = 1;
 }
 
 /**
@@ -22,19 +24,30 @@ function _civicrm_api3_metrics_report_spec(&$spec) {
  * @throws API_Exception
  */
 function civicrm_api3_metrics_report($params) {
-  if (array_key_exists('magicword', $params) && $params['magicword'] == 'sesame') {
-    $returnValues = array( // OK, return several data rows
-      12 => array('id' => 12, 'name' => 'Twelve'),
-      34 => array('id' => 34, 'name' => 'Thirty four'),
-      56 => array('id' => 56, 'name' => 'Fifty six'),
-    );
-    // ALTERNATIVE: $returnValues = array(); // OK, success
-    // ALTERNATIVE: $returnValues = array("Some value"); // OK, return a single value
-
-    // Spec: civicrm_api3_create_success($values = 1, $params = array(), $entity = NULL, $action = NULL)
-    return civicrm_api3_create_success($returnValues, $params, 'Metrics', 'report');
-  } else {
-    throw new API_Exception(/*errorMessage*/ 'Everyone knows that the magicword is "sesame"', /*errorCode*/ 1234);
+  if (
+    !array_key_exists('site_name', $params) || !$params['site_name'] ||
+    !array_key_exists('site_url', $params) || !$params['site_url'] ||
+    !array_key_exists('data', $params) || !$params['data'] ||
+    !is_array($params['data']) || empty($params['data'])
+  ) {
+    throw new API_Exception(ts('site_name, site_url and data are all required parameters'), 1);
   }
+
+  foreach($params['data'] as $row) {
+    $sql = "INSERT INTO `civicrm_metrics_server` (`site_name`, `site_url`, `timestamp`, `type`, `data`) VALUES (%1, %2, NOW(), %3, %4)";
+    $values = array();
+    $values[1] = array($params['site_name'], "String");
+    $values[2] = array($params['site_url'], "String");
+    $values[3] = array($row['type'], "String");
+    if(is_array($row['data'])) {
+      $values[4] = array(json_encode($row['data']), "String");
+    } else {
+      $values[4] = array($row['data'], "String");
+    }
+    
+    $dao =& CRM_Core_DAO::executeQuery($sql, $values);
+  }
+
+  return civicrm_api3_create_success(count($params['data']), $params, 'Metrics', 'report');
 }
 
