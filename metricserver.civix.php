@@ -7,7 +7,7 @@
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_config
  */
-function _server_civix_civicrm_config(&$config = NULL) {
+function _metricserver_civix_civicrm_config(&$config = NULL) {
   static $configured = FALSE;
   if ($configured) {
     return;
@@ -20,10 +20,10 @@ function _server_civix_civicrm_config(&$config = NULL) {
   $extDir = $extRoot . 'templates';
 
   if ( is_array( $template->template_dir ) ) {
-      array_unshift( $template->template_dir, $extDir );
+    array_unshift( $template->template_dir, $extDir );
   }
   else {
-      $template->template_dir = array( $extDir, $template->template_dir );
+    $template->template_dir = array( $extDir, $template->template_dir );
   }
 
   $include_path = $extRoot . PATH_SEPARATOR . get_include_path( );
@@ -37,8 +37,8 @@ function _server_civix_civicrm_config(&$config = NULL) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_xmlMenu
  */
-function _server_civix_civicrm_xmlMenu(&$files) {
-  foreach (_server_civix_glob(__DIR__ . '/xml/Menu/*.xml') as $file) {
+function _metricserver_civix_civicrm_xmlMenu(&$files) {
+  foreach (_metricserver_civix_glob(__DIR__ . '/xml/Menu/*.xml') as $file) {
     $files[] = $file;
   }
 }
@@ -48,9 +48,9 @@ function _server_civix_civicrm_xmlMenu(&$files) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_install
  */
-function _server_civix_civicrm_install() {
-  _server_civix_civicrm_config();
-  if ($upgrader = _server_civix_upgrader()) {
+function _metricserver_civix_civicrm_install() {
+  _metricserver_civix_civicrm_config();
+  if ($upgrader = _metricserver_civix_upgrader()) {
     $upgrader->onInstall();
   }
 }
@@ -60,9 +60,9 @@ function _server_civix_civicrm_install() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_uninstall
  */
-function _server_civix_civicrm_uninstall() {
-  _server_civix_civicrm_config();
-  if ($upgrader = _server_civix_upgrader()) {
+function _metricserver_civix_civicrm_uninstall() {
+  _metricserver_civix_civicrm_config();
+  if ($upgrader = _metricserver_civix_upgrader()) {
     $upgrader->onUninstall();
   }
 }
@@ -72,9 +72,9 @@ function _server_civix_civicrm_uninstall() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_enable
  */
-function _server_civix_civicrm_enable() {
-  _server_civix_civicrm_config();
-  if ($upgrader = _server_civix_upgrader()) {
+function _metricserver_civix_civicrm_enable() {
+  _metricserver_civix_civicrm_config();
+  if ($upgrader = _metricserver_civix_upgrader()) {
     if (is_callable(array($upgrader, 'onEnable'))) {
       $upgrader->onEnable();
     }
@@ -87,9 +87,9 @@ function _server_civix_civicrm_enable() {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_disable
  * @return mixed
  */
-function _server_civix_civicrm_disable() {
-  _server_civix_civicrm_config();
-  if ($upgrader = _server_civix_upgrader()) {
+function _metricserver_civix_civicrm_disable() {
+  _metricserver_civix_civicrm_config();
+  if ($upgrader = _metricserver_civix_upgrader()) {
     if (is_callable(array($upgrader, 'onDisable'))) {
       $upgrader->onDisable();
     }
@@ -107,21 +107,21 @@ function _server_civix_civicrm_disable() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_upgrade
  */
-function _server_civix_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
-  if ($upgrader = _server_civix_upgrader()) {
+function _metricserver_civix_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
+  if ($upgrader = _metricserver_civix_upgrader()) {
     return $upgrader->onUpgrade($op, $queue);
   }
 }
 
 /**
- * @return CRM_Server_Upgrader
+ * @return CRM_Metricserver_Upgrader
  */
-function _server_civix_upgrader() {
-  if (!file_exists(__DIR__.'/CRM/Server/Upgrader.php')) {
+function _metricserver_civix_upgrader() {
+  if (!file_exists(__DIR__.'/CRM/Metricserver/Upgrader.php')) {
     return NULL;
   }
   else {
-    return CRM_Server_Upgrader_Base::instance();
+    return CRM_Metricserver_Upgrader_Base::instance();
   }
 }
 
@@ -135,7 +135,7 @@ function _server_civix_upgrader() {
  * @param $pattern string, glob pattern, eg "*.txt"
  * @return array(string)
  */
-function _server_civix_find_files($dir, $pattern) {
+function _metricserver_civix_find_files($dir, $pattern) {
   if (is_callable(array('CRM_Utils_File', 'findFiles'))) {
     return CRM_Utils_File::findFiles($dir, $pattern);
   }
@@ -144,7 +144,7 @@ function _server_civix_find_files($dir, $pattern) {
   $result = array();
   while (!empty($todos)) {
     $subdir = array_shift($todos);
-    foreach (_server_civix_glob("$subdir/$pattern") as $match) {
+    foreach (_metricserver_civix_glob("$subdir/$pattern") as $match) {
       if (!is_dir($match)) {
         $result[] = $match;
       }
@@ -169,13 +169,13 @@ function _server_civix_find_files($dir, $pattern) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_managed
  */
-function _server_civix_civicrm_managed(&$entities) {
-  $mgdFiles = _server_civix_find_files(__DIR__, '*.mgd.php');
+function _metricserver_civix_civicrm_managed(&$entities) {
+  $mgdFiles = _metricserver_civix_find_files(__DIR__, '*.mgd.php');
   foreach ($mgdFiles as $file) {
     $es = include $file;
     foreach ($es as $e) {
       if (empty($e['module'])) {
-        $e['module'] = 'org.ginkgostreet.demographics.server';
+        $e['module'] = 'com.ginkgostreet.metricserver';
       }
       $entities[] = $e;
     }
@@ -191,12 +191,12 @@ function _server_civix_civicrm_managed(&$entities) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_caseTypes
  */
-function _server_civix_civicrm_caseTypes(&$caseTypes) {
+function _metricserver_civix_civicrm_caseTypes(&$caseTypes) {
   if (!is_dir(__DIR__ . '/xml/case')) {
     return;
   }
 
-  foreach (_server_civix_glob(__DIR__ . '/xml/case/*.xml') as $file) {
+  foreach (_metricserver_civix_glob(__DIR__ . '/xml/case/*.xml') as $file) {
     $name = preg_replace('/\.xml$/', '', basename($file));
     if ($name != CRM_Case_XMLProcessor::mungeCaseType($name)) {
       $errorMessage = sprintf("Case-type file name is malformed (%s vs %s)", $name, CRM_Case_XMLProcessor::mungeCaseType($name));
@@ -204,7 +204,7 @@ function _server_civix_civicrm_caseTypes(&$caseTypes) {
       // throw new CRM_Core_Exception($errorMessage);
     }
     $caseTypes[$name] = array(
-      'module' => 'org.ginkgostreet.demographics.server',
+      'module' => 'com.ginkgostreet.metricserver',
       'name' => $name,
       'file' => $file,
     );
@@ -212,25 +212,25 @@ function _server_civix_civicrm_caseTypes(&$caseTypes) {
 }
 
 /**
-* (Delegated) Implements hook_civicrm_angularModules().
-*
-* Find any and return any files matching "ang/*.ang.php"
-*
-* Note: This hook only runs in CiviCRM 4.5+.
-*
-* @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_angularModules
-*/
-function _server_civix_civicrm_angularModules(&$angularModules) {
+ * (Delegated) Implements hook_civicrm_angularModules().
+ *
+ * Find any and return any files matching "ang/*.ang.php"
+ *
+ * Note: This hook only runs in CiviCRM 4.5+.
+ *
+ * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_angularModules
+ */
+function _metricserver_civix_civicrm_angularModules(&$angularModules) {
   if (!is_dir(__DIR__ . '/ang')) {
     return;
   }
 
-  $files = _server_civix_glob(__DIR__ . '/ang/*.ang.php');
+  $files = _metricserver_civix_glob(__DIR__ . '/ang/*.ang.php');
   foreach ($files as $file) {
     $name = preg_replace(':\.ang\.php$:', '', basename($file));
     $module = include $file;
     if (empty($module['ext'])) {
-      $module['ext'] = 'org.ginkgostreet.demographics.server';
+      $module['ext'] = 'com.ginkgostreet.metricserver';
     }
     $angularModules[$name] = $module;
   }
@@ -248,7 +248,7 @@ function _server_civix_civicrm_angularModules(&$angularModules) {
  * @param string $pattern
  * @return array, possibly empty
  */
-function _server_civix_glob($pattern) {
+function _metricserver_civix_glob($pattern) {
   $result = glob($pattern);
   return is_array($result) ? $result : array();
 }
@@ -261,7 +261,7 @@ function _server_civix_glob($pattern) {
  * @param array $item - menu you need to insert (parent/child attributes will be filled for you)
  * @param int $parentId - used internally to recurse in the menu structure
  */
-function _server_civix_insert_navigation_menu(&$menu, $path, $item, $parentId = NULL) {
+function _metricserver_civix_insert_navigation_menu(&$menu, $path, $item, $parentId = NULL) {
   static $navId;
 
   // If we are done going down the path, insert menu
@@ -286,7 +286,7 @@ function _server_civix_insert_navigation_menu(&$menu, $path, $item, $parentId = 
     foreach ($menu as $key => &$entry) {
       if ($entry['attributes']['name'] == $first) {
         if (!$entry['child']) $entry['child'] = array();
-        $found = _server_civix_insert_navigation_menu($entry['child'], implode('/', $path), $item, $key);
+        $found = _metricserver_civix_insert_navigation_menu($entry['child'], implode('/', $path), $item, $key);
       }
     }
     return $found;
@@ -298,7 +298,7 @@ function _server_civix_insert_navigation_menu(&$menu, $path, $item, $parentId = 
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_alterSettingsFolders
  */
-function _server_civix_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
+function _metricserver_civix_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
   static $configured = FALSE;
   if ($configured) {
     return;

@@ -5,7 +5,7 @@
 /**
  * Base class which provides helpers to execute upgrade logic
  */
-class CRM_Server_Upgrader_Base {
+class CRM_Metricserver_Upgrader_Base {
 
   /**
    * @var varies, subclass of ttis
@@ -38,8 +38,8 @@ class CRM_Server_Upgrader_Base {
   static public function instance() {
     if (! self::$instance) {
       // FIXME auto-generate
-      self::$instance = new CRM_Server_Upgrader(
-        'org.ginkgostreet.demographics.server',
+      self::$instance = new CRM_Metricserver_Upgrader(
+        'com.ginkgostreet.metricserver',
         realpath(__DIR__ .'/../../../')
       );
     }
