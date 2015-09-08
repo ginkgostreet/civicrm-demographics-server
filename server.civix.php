@@ -175,7 +175,7 @@ function _server_civix_civicrm_managed(&$entities) {
     $es = include $file;
     foreach ($es as $e) {
       if (empty($e['module'])) {
-        $e['module'] = 'org.ginkgostreet.demographics.server';
+        $e['module'] = 'com.ginkgostreet.demographics.server';
       }
       $entities[] = $e;
     }
@@ -204,7 +204,7 @@ function _server_civix_civicrm_caseTypes(&$caseTypes) {
       // throw new CRM_Core_Exception($errorMessage);
     }
     $caseTypes[$name] = array(
-      'module' => 'org.ginkgostreet.demographics.server',
+      'module' => 'com.ginkgostreet.demographics.server',
       'name' => $name,
       'file' => $file,
     );
@@ -230,7 +230,7 @@ function _server_civix_civicrm_angularModules(&$angularModules) {
     $name = preg_replace(':\.ang\.php$:', '', basename($file));
     $module = include $file;
     if (empty($module['ext'])) {
-      $module['ext'] = 'org.ginkgostreet.demographics.server';
+      $module['ext'] = 'com.ginkgostreet.demographics.server';
     }
     $angularModules[$name] = $module;
   }

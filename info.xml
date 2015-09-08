@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<extension key="org.ginkgostreet.demographics.server" type="module">
+<extension key="com.ginkgostreet.demographics.server" type="module">
   <file>server</file>
   <name>CiviCRM-Demographics-Server</name>
   <description>This extension allows you to collect custom demographics from a collection of sites.</description>

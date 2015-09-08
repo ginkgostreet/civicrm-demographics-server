@@ -39,7 +39,7 @@ class CRM_Server_Upgrader_Base {
     if (! self::$instance) {
       // FIXME auto-generate
       self::$instance = new CRM_Server_Upgrader(
-        'org.ginkgostreet.demographics.server',
+        'com.ginkgostreet.demographics.server',
         realpath(__DIR__ .'/../../../')
       );
     }
