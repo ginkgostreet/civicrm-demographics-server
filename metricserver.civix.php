@@ -20,10 +20,10 @@ function _metricserver_civix_civicrm_config(&$config = NULL) {
   $extDir = $extRoot . 'templates';
 
   if ( is_array( $template->template_dir ) ) {
-    array_unshift( $template->template_dir, $extDir );
+      array_unshift( $template->template_dir, $extDir );
   }
   else {
-    $template->template_dir = array( $extDir, $template->template_dir );
+      $template->template_dir = array( $extDir, $template->template_dir );
   }
 
   $include_path = $extRoot . PATH_SEPARATOR . get_include_path( );
@@ -114,7 +114,7 @@ function _metricserver_civix_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL)
 }
 
 /**
- * @return CRM_Metricserver_Upgrader
+ * @return CRM_Server_Upgrader
  */
 function _metricserver_civix_upgrader() {
   if (!file_exists(__DIR__.'/CRM/Metricserver/Upgrader.php')) {
@@ -212,14 +212,14 @@ function _metricserver_civix_civicrm_caseTypes(&$caseTypes) {
 }
 
 /**
- * (Delegated) Implements hook_civicrm_angularModules().
- *
- * Find any and return any files matching "ang/*.ang.php"
- *
- * Note: This hook only runs in CiviCRM 4.5+.
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_angularModules
- */
+* (Delegated) Implements hook_civicrm_angularModules().
+*
+* Find any and return any files matching "ang/*.ang.php"
+*
+* Note: This hook only runs in CiviCRM 4.5+.
+*
+* @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_angularModules
+*/
 function _metricserver_civix_civicrm_angularModules(&$angularModules) {
   if (!is_dir(__DIR__ . '/ang')) {
     return;
