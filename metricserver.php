@@ -144,14 +144,14 @@ function metricserver_civicrm_preProcess($formName, &$form) {
  *
  */
 function metricserver_civicrm_navigationMenu( &$params ) {
-  // get the id of Administer Menu
-  $administerMenuId = CRM_Core_DAO::getFieldValue('CRM_Core_BAO_Navigation', 'Administer', 'id', 'name');
+  // get the id of the Reports Menu
+  $reportMenuId = CRM_Core_DAO::getFieldValue('CRM_Core_BAO_Navigation', 'Reports', 'id', 'name');
 
   // skip adding menu if there is no administer menu
-  if ($administerMenuId) {
+  if ($reportMenuId) {
     // get the maximum key under adminster menu
-    $maxKey = max( array_keys($params[$administerMenuId]['child']));
-    $params[$administerMenuId]['child'][$maxKey+1] =  array (
+    $maxKey = max( array_keys($params[$reportMenuId]['child']));
+    $params[$reportMenuId]['child'][$maxKey+1] =  array (
       'attributes' => array (
         'label'      => 'Metrics Data',
         'name'       => 'MetricServerData',
@@ -159,7 +159,7 @@ function metricserver_civicrm_navigationMenu( &$params ) {
         'permission' => 'administer CiviCRM',
         'operator'   => NULL,
         'separator'  => false,
-        'parentID'   => $administerMenuId,
+        'parentID'   => $reportMenuId,
         'navID'      => $maxKey+1,
         'active'     => 1
       )
