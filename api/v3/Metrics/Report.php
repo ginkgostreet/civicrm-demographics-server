@@ -40,7 +40,11 @@ function civicrm_api3_metrics_report($params) {
     $values[2] = array($params['site_url'], "String");
     $values[3] = array($row['type'], "String");
     if(is_array($row['data'])) {
-      $values[4] = array(json_encode($row['data']), "String");
+      if ((PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION >= 4) || PHP_MAJOR_VERSION > 5) {
+        $values[4] = array(json_encode($row['data'], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE), "String");
+      } else {
+        $values[4] = array(json_encode($row['data']), "String");
+      }
     } else {
       $values[4] = array($row['data'], "String");
     }
@@ -50,4 +54,3 @@ function civicrm_api3_metrics_report($params) {
 
   return civicrm_api3_create_success(count($params['data']), $params, 'Metrics', 'report');
 }
-
