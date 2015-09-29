@@ -41,7 +41,7 @@ function civicrm_api3_metrics_report($params) {
     $values[3] = array($row['type'], "String");
     if(is_array($row['data'])) {
       if ((PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION >= 4) || PHP_MAJOR_VERSION > 5) {
-        $values[4] = array(json_encode($row['data'], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE), "String");
+        $values[4] = array(json_encode($row['data'], JSON_UNESCAPED_UNICODE), "String");
       } else {
         $values[4] = array(json_encode($row['data']), "String");
       }
