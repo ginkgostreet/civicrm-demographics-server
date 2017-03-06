@@ -38,8 +38,10 @@ class CRM_Metricserver_Page_Report extends CRM_Core_Page {
     } else {
 
       CRM_Utils_System::setTitle(ts('Metrics Report'));
-      $this->assign('data', $rows);
-      $this->assign('headers', array_keys($rows[0]));
+      if (count($rows)) {
+        $this->assign('data', $rows);
+        $this->assign('headers', array_keys($rows[0]));
+      }
       parent::run();
     }
   }
